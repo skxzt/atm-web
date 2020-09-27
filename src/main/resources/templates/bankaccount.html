@@ -44,6 +44,7 @@
             <th>Type</th>
             <th>Balance</th>
             <th>Action</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -53,6 +54,11 @@
             <td th:text="${bankaccount.type}"></td>
             <td th:text="${bankaccount.balance}"></td>
             <td><a th:href="@{/bankaccount/edit/{id}(id=${bankaccount.id})}">Edit</a></td>
+            <td>
+                <form th:action="@{/bankaccount/delete/{id}(id=${bankaccount.id})}" method="POST">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
