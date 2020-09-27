@@ -28,27 +28,36 @@ public class BankAccountController {
         return "redirect:bankaccount";
     }
 
-    @GetMapping("/edit/{id}")
-    public String getEditBankAccountPage(@PathVariable int id, Model model) {
+    @GetMapping("/deposit/{id}")
+    public String getDepositBankAccountPage(@PathVariable int id, Model model) {
         BankAccount account = bankAccountService.getBankAccount(id);
         model.addAttribute("bankAccount", account);
-        return "bankaccount-edit";
+        return "bankaccount-deposit";
     }
 
-    @PostMapping("/edit/{id}")
-    public String editAccount(@PathVariable int id, @ModelAttribute BankAccount bankAccount, Model model) {
-        bankAccountService.editBankAccount(bankAccount);
-        model.addAttribute("bankaccounts",bankAccountService.getBankAccounts());
+    @PostMapping("/deposit/{id}")
+    public String depositAccount(@PathVariable int id,@ModelAttribute BankAccount bankAccount, double value) {
+        bankAccountService.depositBankAccount(bankAccount, value);
+        return "redirect:/bankaccount";
+    }
+
+    @GetMapping("/withdraw/{id}")
+    public String getWithdrawBankAccountPage(@PathVariable int id, Model model) {
+        BankAccount account = bankAccountService.getBankAccount(id);
+        model.addAttribute("bankAccount", account);
+        return "bankaccount-withdraw";
+    }
+
+    @PostMapping("/withdraw/{id}")
+    public String withdrawAccount(@PathVariable int id, @ModelAttribute BankAccount bankAccount, double value) {
+        bankAccountService.withdrawBankAccount(bankAccount, value);
         return "redirect:/bankaccount";
     }
 
     @PostMapping("delete/{id}")
-    public String deleteAccount(@PathVariable int id, @ModelAttribute BankAccount bankAccount, Model model){
+    public String deleteAccount(@PathVariable int id, @ModelAttribute BankAccount bankAccount){
         bankAccountService.deleteBankAccount(bankAccount);
         return "redirect:/bankaccount";
     }
-
-
-
 
 }

@@ -26,11 +26,6 @@ public class BankAccountService {
         return Arrays.asList(accounts);
     }
 
-
-
-//    @PostConstruct
-//    public void postConstruct(){this.bankAccountList = new ArrayList<>();}
-//
     public void createBankAccount(BankAccount bankAccount){
         String url = "http://localhost:8091/api/bankaccount";
         restTemplate.postForObject(url, bankAccount, BankAccount.class);
@@ -49,9 +44,18 @@ public class BankAccountService {
         return response.getBody();
     }
 
-    public void editBankAccount(BankAccount bankAccount) {
+    public void withdrawBankAccount(BankAccount bankAccount, double wValue) {
+        if(bankAccount.getBalance() >= wValue){
+            String url = "http://localhost:8091/api/bankaccount/" + bankAccount.getId();
+            double newBalance = bankAccount.getBalance() - wValue;
+            restTemplate.put(url, newBalance);
+        }
+    }
+
+    public void depositBankAccount(BankAccount bankAccount, double dValue) {
         String url = "http://localhost:8091/api/bankaccount/" + bankAccount.getId();
-        restTemplate.put(url, bankAccount);
+        double newBalance = bankAccount.getBalance() + dValue;
+        restTemplate.put(url, newBalance);
     }
 
     public void deleteBankAccount(BankAccount bankAccount){

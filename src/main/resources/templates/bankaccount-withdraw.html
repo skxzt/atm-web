@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}"
+      xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Withdraw</title>
+    <link th:rel="stylesheet" th:href="@{css/bootstrap.min.css}">
+</head>
+<body>
+
+<div class="container" layout:fragment="content">
+    <h1>Withdraw</h1>
+    <form th:action="@{/bankaccount/withdraw/{id} (id=${bankAccount.id})}"
+          th:object="${bankAccount}" method="POST">
+
+        <div class="form-group">
+            <label for="inputId">Id</label>
+            <input disabled type="text" th:field="*{id}" name="id" class="form-control" id="inputId">
+        </div>
+
+        <div class="form-group">
+            <label for="inputCustomer">Customer Id</label>
+            <input disabled type="text" th:field="*{customerId}" name="customerId" class="form-control" id="inputCustomer">
+        </div>
+
+        <div class="form-group">
+            <label for="inputType">Type</label>
+            <input disabled type="text" th:field="*{type}" name="type" class="form-control" id="inputType">
+        </div>
+
+        <div class="form-group">
+            <label for="inputBalance">Balance</label>
+            <input readonly type="text" th:field="*{balance}" name="balance" class="form-control" id="inputBalance">
+        </div>
+
+        <div class="form-group">
+            <label for="inputValue">Amount</label>
+            <input type="input" class="form-control" name="value" id="inputValue">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" >Withdraw</button>
+        </div>
+    </form>
+
+</div>
